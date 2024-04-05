@@ -29,7 +29,7 @@ export const Navbar = () => {
     return (
         <div class="container-fluid">
             <div class="row sticky-top" >
-            <nav  class="navbar navbar-expand-lg bg-body-tertiary sticky-top ">
+            <nav  class="navbar navbar-expand-lg bg-body-tertiary sticky-top " >
                 <div class="container-fluid">
                     <Link to="/" class="navbar-brand ">EMART</Link>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,26 +39,26 @@ export const Navbar = () => {
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item mx-2 px-3">
                                 <Link to="/" class="nav-link " aria-current="page">
-                                    <img src={house} alt="home"/>&nbsp;Home
+                                    <img src={house} style={{height:"30px",width:"30px"}} alt="house"/>&nbsp;Home
                                 </Link>
                             </li>
                             {user&&<li class="nav-item mx-2 px-3">
                                 <Link to="/orders" class="nav-link" href="#">
-                                    <img src={myorders} alt="orders"/>&nbsp;My orders
+                                    <img src={myorders} style={{height:"30px",width:"30px"}} alt="orders"/>&nbsp;My orders
                                 </Link>
                             </li>}
                             {user&&<li class="nav-item mx-2 px-3">
                                 <Link to="/cart" class="nav-link" href="#">
-                                    <img src={cart} alt="cartlogo"></img>&nbsp; Cart</Link>
+                                    <img src={cart} style={{height:"30px",width:"30px"}} alt="cart"/>&nbsp; Cart</Link>
                             </li>}
                             {user&&<li class="nav-item mx-2 px-3" style={{ alignItems: "center" }}>
                                 <button type="button" class="btn btn-light" onClick={handlelogout}>
-                                    <img src={logout} alt="logout"></img>Log out
+                                    <img src={logout} style={{height:"30px",width:"30px"}} alt="log out"/>Log out
                                 </button>
                             </li>}
                             {!user&&<li class="nav-item mx-2 px-3" style={{ alignItems: "center" }}>
                                 <Link to="/auth/signin"><button type="button" class="btn btn-light">
-                                    <img src={login} alt="login"></img>Sign in
+                                    <img src={login} style={{height:"30px",width:"30px"}} alt="sign in"/>Sign in
                                 </button>
                                 </Link>
                             </li>}
