@@ -1,0 +1,46 @@
+body {
+  height: 100vh;
+  width: 100vw;
+  margin:0px;
+  overflow-x: hidden;
+  background-color: white;
+}
+a{
+  text-decoration: none;
+}
+.loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.app.transitioning {
+  opacity: 0; /* Example transition effect */
+}
+.card:hover {
+  transform: scale(1.1); /* Scale up the card on hover */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a box shadow on hover */
+}
+input:focus {
+  outline: none;
+}
+
+@media screen and (min-width:576px){
+  .carousel-inner{
+    display:flex;
+  }
+  .carousel-item{
+    display: block;
+    margin-right: 0;
+    flex:0 0 calc(100%/3);
+  }
+  
+}
+.carousel-inner{
+  padding:1em;
+}
