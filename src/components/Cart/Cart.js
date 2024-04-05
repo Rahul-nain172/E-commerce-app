@@ -7,16 +7,6 @@ import { useNavigate } from "react-router-dom";
 export const Cart = () => {
     const { User, CartItems, total, nitems, handleAddtomyorders, handlechangeinCart,option,handleopChange,addressref,phoneref } = useContext(UserContext);
     const navigate = useNavigate();
-    const see=()=>{
-        if(addressref&&addressref.current){
-            console.log(addressref);
-            console.log("see address is: ",addressref.current.value)
-        }
-        if(!addressref||!addressref.current||addressref.current.value==="")
-        {
-            toast.warning('ENTER YOUR ADDRESS FOR THE DELIVERY!');
-        }
-    }
     useEffect(() => {
         if (!User) {
             navigate("/auth/signin");
@@ -112,7 +102,7 @@ export const Cart = () => {
                                 <legend>Shipping Info</legend>
                                 <div class="mb-3">
                                     <label for="address" class="form-label" required>Enter Your Address</label>
-                                    <textarea type="address" class="form-control" id="address" aria-describedby="address" ref={addressref} onChange={see}/>
+                                    <textarea type="address" class="form-control" id="address" aria-describedby="address" ref={addressref} />
 
                                 </div>
                                 <div class="mb-3">
