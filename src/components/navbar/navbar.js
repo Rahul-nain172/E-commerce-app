@@ -1,4 +1,3 @@
-import navstyle from "./navbarstyle.module.css";
 import house from "../../assets/images/house.png"
 import login from "../../assets/images/login.png"
 import logout from "../../assets/images/logout.png"
@@ -40,26 +39,26 @@ export const Navbar = () => {
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item mx-2 px-3">
                                 <Link to="/" class="nav-link " aria-current="page">
-                                    <img src={house}></img>&nbsp;Home
+                                    <img src={house} alt="home"/>&nbsp;Home
                                 </Link>
                             </li>
                             {user&&<li class="nav-item mx-2 px-3">
                                 <Link to="/orders" class="nav-link" href="#">
-                                    <img src={myorders}></img>&nbsp;My orders
+                                    <img src={myorders} alt="orders"/>&nbsp;My orders
                                 </Link>
                             </li>}
                             {user&&<li class="nav-item mx-2 px-3">
                                 <Link to="/cart" class="nav-link" href="#">
-                                    <img src={cart}></img>&nbsp; Cart</Link>
+                                    <img src={cart} alt="cartlogo"></img>&nbsp; Cart</Link>
                             </li>}
                             {user&&<li class="nav-item mx-2 px-3" style={{ alignItems: "center" }}>
                                 <button type="button" class="btn btn-light" onClick={handlelogout}>
-                                    <img src={logout}></img>Log out
+                                    <img src={logout} alt="logout"></img>Log out
                                 </button>
                             </li>}
                             {!user&&<li class="nav-item mx-2 px-3" style={{ alignItems: "center" }}>
                                 <Link to="/auth/signin"><button type="button" class="btn btn-light">
-                                    <img src={login}></img>Sign in
+                                    <img src={login} alt="login"></img>Sign in
                                 </button>
                                 </Link>
                             </li>}

@@ -2,7 +2,7 @@ import { Navbar } from "./components/navbar/navbar.js"
 import Auth from "./components/authentication/auth.js";
 import CustomUserContext from "./contexts/usercontext.js";
 import { createBrowserRouter,RouterProvider } from "react-router-dom";
-import { useEffect,useState } from 'react';
+import { useEffect } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { Cart } from "./components/Cart/Cart.js";
 import { Myorder } from "./components/myorders/dummyorders.js";
