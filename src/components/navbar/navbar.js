@@ -72,11 +72,11 @@ export const Navbar = () => {
             <Outlet />
             </div>
             <div class="row">
-            <div class="container-fluid  text-bg-dark p-3" data-bs-theme="dark">
+            <div class="container-fluid  text-bg-dark p-3" data-bs-theme="dark" >
                 <div class="row ">
-                    <div class="col-4"><h2>About Us</h2>
+                    <div class="col-4" style={{overflow:"visible"}}><h2>About Us</h2>
                         <p>At EMART, we're passionate about providing you with the latest and greatest in electronic gadgets and devices. Whether you're a tech enthusiast, a casual user, or a professional, we strive to offer a curated selection of high-quality products to meet your needs.</p></div>
-                    <div class="col-4"><h2>Contact</h2>
+                    <div class="col-3" style={{overflow:"visible"}}><h2>Contact</h2>
                         <p><i class="fa-solid fa-address-book"></i>&nbsp; 123, ABC Street
                             City: Pune
                             State: Maharashtra
@@ -85,7 +85,7 @@ export const Navbar = () => {
                         <p><i class="fa-solid fa-phone"></i>&nbsp; +91 98765 43210</p>
                         <p><i class="fa-solid fa-envelope"></i>&nbsp; contact@emart.com</p>
                     </div>
-                    <div class="col-2"><h2>Category</h2>
+                    <div class="col-2 mx-1" style={{overflow:"hidden"}}><h2>Category</h2>
                     <p>SmartPhones</p>
                     <p>Laptops</p>
                     <p>Television</p>

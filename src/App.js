@@ -5,7 +5,7 @@ import { createBrowserRouter,RouterProvider } from "react-router-dom";
 import { useEffect } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { Cart } from "./components/Cart/Cart.js";
-import { Myorder } from "./components/myorders/dummyorders.js";
+import { Myorder } from "./components/myorders/Orders.js";
 import { Hero } from "./components/hero/hero.js";
 import { Product } from "./components/Items/product.js";
 import { Bill } from "./components/Bill/Bill.js";

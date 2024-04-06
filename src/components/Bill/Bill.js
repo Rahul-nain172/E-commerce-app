@@ -12,15 +12,13 @@ export const Bill = () => {
     const { User, OrderItems, billloader, setbillloader, billref } = useContext(UserContext);
     let { ind } = useParams();
     ind = parseInt(ind);
-    const obj = OrderItems[ind];
+    let obj = OrderItems[ind];
     useEffect(() => {
-        console.log("yes");
         if (!User) {
             navigate("/auth/signin");
-            return;
         }
 
-    }, [User, navigate]);
+    });
     const DownloadPDF = async () => {
         setbillloader(true);
         const capture = document.querySelector('.container');
@@ -29,9 +27,12 @@ export const Bill = () => {
         const pdf = new jsPDF('l', 'mm', 'a4');
         const componentHeight = pdf.internal.pageSize.getHeight();
         const componentWidth = pdf.internal.pageSize.getWidth();
-        pdf.addImage(imgdata, 'PNG', 0, 0, componentWidth, componentHeight);   
+        pdf.addImage(imgdata, 'PNG', 0, 0, componentWidth, componentHeight);
         setbillloader(false);
         pdf.save(`bill${obj.id}.pdf`);
+    }
+    if (!obj) {
+        return (<></>);
     }
     return (
 
@@ -69,31 +70,33 @@ export const Bill = () => {
                     </div>
                     <div className={billstyle.divider}></div>
                     <div class="row">
-                        <table class="table ">
-                            <thead>
-                                <tr>
-                                    <th scope="col">ITEMS</th>
-                                    <th scope="col">DESCRIPTION</th>
-                                    <th scope="col">QUANTITY</th>
-                                    <th scope="col">PRICE</th>
-                                    <th scope="col">TAX</th>
-                                    <th scope="col">AMOUNT</th>
+                        <div class="table-responsive">
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ITEMS</th>
+                                        <th scope="col">DESCRIPTION</th>
+                                        <th scope="col">QUANTITY</th>
+                                        <th scope="col">PRICE</th>
+                                        <th scope="col">TAX</th>
+                                        <th scope="col">AMOUNT</th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {obj.order.map((item, ind) => {
-                                    return (<tr>
-                                        <td>{ind + 1}</td>
-                                        <td>{item.Name}</td>
-                                        <td>{item.Count}</td>
-                                        <td>$&nbsp;{item.Price}</td>
-                                        <td>0%</td>
-                                        <td>$&nbsp;{item.Price * item.Count}</td>
-                                    </tr>)
-                                })}
-                            </tbody>
-                        </table>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {obj.order.map((item, ind) => {
+                                        return (<tr>
+                                            <td>{ind + 1}</td>
+                                            <td>{item.Name}</td>
+                                            <td>{item.Count}</td>
+                                            <td>$&nbsp;{item.Price}</td>
+                                            <td>0%</td>
+                                            <td>$&nbsp;{item.Price * item.Count}</td>
+                                        </tr>)
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div className={billstyle.divider} style={{ marginTop: "30px", marginBottom: "30px" }}></div>
                     <div class="row">
@@ -109,14 +112,14 @@ export const Bill = () => {
 
                 </div>
             </div>}
-            {User&&
-            <div class="row" style={{justifyContent:"center"}}>
-                <button type="button" class="btn btn-primary" disabled={!(billloader === false)} onClick={DownloadPDF} style={{maxWidth:"200px"}}>
-                    {billloader ? (<span>Downloading</span>) : (<span>Download PDF</span>)}
-                </button>
-            </div>
+            {User &&
+                <div class="row" style={{ justifyContent: "center" }}>
+                    <button type="button" class="btn btn-primary" disabled={!(billloader === false)} onClick={DownloadPDF} style={{ maxWidth: "200px" }}>
+                        {billloader ? (<span>Downloading</span>) : (<span>Download PDF</span>)}
+                    </button>
+                </div>
             }
-            
+
         </div>
     )
 }

@@ -5,6 +5,7 @@ import {db, app } from "../firebaseInit";
 import { setDoc ,doc,getDoc} from "firebase/firestore"; 
 import data from "../assets/store";
 import { toast } from 'react-toastify';
+import { Spinner } from "../components/spinners";
 export const UserContext = createContext();
 
 export default function CustomUserContext({ children }) {
@@ -19,6 +20,8 @@ export default function CustomUserContext({ children }) {
     const phoneref=useRef(null);
     const billref=useRef(null);
     const [billloader,setbillloader]=useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    // console.log(User);
 
   const handleopChange = (event) => {
     setoption(event.target.value);
@@ -33,6 +36,7 @@ export default function CustomUserContext({ children }) {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUser(user);
+            setIsLoading(false);
 
         });        
         return () => unsubscribe();
@@ -41,6 +45,7 @@ export default function CustomUserContext({ children }) {
         setfilteredData(data);
     },[]);
     const handlepricerange=(event)=>{
+
         let curr_price=event.target.value
         curr_price=parseInt(curr_price);
         setprice(curr_price);
@@ -54,7 +59,7 @@ export default function CustomUserContext({ children }) {
         setfilteredData(newdata);
     }
     const handlecheckboxes=(event)=>{
-    
+
         let curr=checkboxes;
         const {name,checked}=event.target;
         curr[name]=checked;
@@ -71,6 +76,7 @@ export default function CustomUserContext({ children }) {
     }
     useEffect(()=>{
         const fillmycart =async ()=>{
+            
             const cartRef = doc(db, 'carts', User.uid);
             const cartSnapshot = await getDoc(cartRef);
             if(cartSnapshot.exists())
@@ -94,14 +100,18 @@ export default function CustomUserContext({ children }) {
             const OrderSnapshot = await getDoc(OrderRef);
             if(OrderSnapshot.exists())
             setOrderItems(OrderSnapshot.data().items);
-        }
+           
+           
+        };
             if(User){
-            fillmycart();
+            setIsLoading(true);
             fillmyorders();
+            fillmycart();
+            setIsLoading(false);
         }
     },[User]);
-
     const handleAddtoCart = async (obj) => {
+        setIsLoading(true);
         const cartRef = doc(db, 'carts', User.uid);
         let cartSnapshot = await getDoc(cartRef);
         const newEntry = {
@@ -138,17 +148,19 @@ export default function CustomUserContext({ children }) {
                 currn+=parseInt(cartSnapshot.data().items[i].Count);
             }
             toast.success('ITEM ADDED TO CART !!');
+            setIsLoading(false);
             settotal(currt);
             setnitems(currn);
         }
     }
     const handlechangeinCart=async (event,obj,f)=>{
-
+        setIsLoading(true);
         let val=event.target.value;
         const cartRef = doc(db, 'carts', User.uid);
         const cartSnapshot = await getDoc(cartRef);
         if(!cartSnapshot.exists())
         {
+            setIsLoading(false);
             return;
         }
         let curr=cartSnapshot.data().items;
@@ -174,11 +186,14 @@ export default function CustomUserContext({ children }) {
             currt+=parseInt(curr[i].Count)*parseInt(curr[i].Price);
             currn+=parseInt(curr[i].Count);
         }
+       
         settotal(currt);
         setnitems(currn);
         setCartItems(curr);
+        setIsLoading(false);
     }
     const handleAddtomyorders=async (obj)=>{
+        setIsLoading(true);
         const OrderRef = doc(db, 'orders', User.uid);
         const OrderSnapshot = await getDoc(OrderRef);
         const cartRef = doc(db, 'carts', User.uid);
@@ -208,6 +223,7 @@ export default function CustomUserContext({ children }) {
             });
             setOrderItems([obj]);
         }
+        setIsLoading(false);
     }
     const handleSearch=(event)=>{
         const pre=event.target.value.toLowerCase();
@@ -217,6 +233,13 @@ export default function CustomUserContext({ children }) {
     const scroll=()=>{
         targetRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+    if (isLoading) {
+        return(
+        <div className="container text-center">
+        <Spinner/>
+        <p>Loading</p>
+        </div>);
+      }
     return (
         <UserContext.Provider value={{ User, setUser,handleAddtoCart,CartItems,total,nitems,handleAddtomyorders,OrderItems,handlechangeinCart,filteredData,handleSearch,price,handlepricerange,checkboxes,handlecheckboxes,targetRef,scroll,option,handleopChange,addressref,phoneref,billloader,setbillloader,billref}}>
             {children}
